@@ -727,8 +727,12 @@ public:
             rate.sleep();
             publishGlobalMap();
         }
+	if (globalMapKeyFramesDS->size() > 0) {
+    		// save final point cloud
+    		pcl::io::savePCDFileASCII(fileDirectory+"finalCloud.pcd", *globalMapKeyFramesDS);
+	}
         // save final point cloud
-        pcl::io::savePCDFileASCII(fileDirectory+"finalCloud.pcd", *globalMapKeyFramesDS);
+        // pcl::io::savePCDFileASCII(fileDirectory+"finalCloud.pcd", *globalMapKeyFramesDS);
 
         string cornerMapString = "/tmp/cornerMap.pcd";
         string surfaceMapString = "/tmp/surfaceMap.pcd";
@@ -756,7 +760,7 @@ public:
     }
 
     void publishGlobalMap(){
-
+	    
         if (pubLaserCloudSurround.getNumSubscribers() == 0)
             return;
 
